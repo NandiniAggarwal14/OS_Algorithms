@@ -1,26 +1,25 @@
-#include<iostream>
 #include<bits/stdc++.h>
 using namespace std;
-class sjf
+class priority_based
 {
     public:
         int pid;
         int at;
         int bt;
+        int priority;
         int ct;
         int tat;
         int wt;
         int st;
         int rt;
 };
-
 int main()
 {
-    sjf ob[5];
+    priority_based ob[5];
     for(int i =0;i<5;i++)
     {
-        cout<< "Enter process id, arrival time, burst time for process no"<<i+1<<endl;
-        cin>>ob[i].pid>>ob[i].at>>ob[i].bt;
+        cout<< "Enter process id, arrival time, burst time and priority value for process no"<<i+1<<endl;
+        cin>>ob[i].pid>>ob[i].at>>ob[i].bt>>ob[i].priority;
     }
     for(int i=0;i<4;i++)
     {
@@ -28,7 +27,7 @@ int main()
         {
             if(ob[j].at>ob[j+1].at)
             {
-                sjf temp = ob[j];
+                priority_based temp = ob[j];
                 ob[j] = ob[j+1];
                 ob[j+1] = temp;
             }
@@ -38,7 +37,7 @@ int main()
                 {
                     if(ob[j].pid>ob[j+1].pid)
                     {
-                        sjf temp = ob[j];
+                        priority_based temp = ob[j];
                         ob[j] = ob[j+1];
                         ob[j+1] = temp;
                     }
@@ -52,18 +51,18 @@ int main()
     while(completed < 5)
     {
         int ind = -1;
-        int min_bt = INT_MAX;
+        int min_prio = INT_MAX;
 
         for(int i = 0; i < 5; i++)
         {
             if(!done[i] && ob[i].at <= time)
             {
-                if(ob[i].bt < min_bt)
+                if(ob[i].priority < min_prio)
                 {
-                    min_bt = ob[i].bt;
+                    min_prio = ob[i].priority;
                     ind = i;
                 }
-                else if(ob[i].bt == min_bt)
+                else if(ob[i].priority == min_prio)
                 {
                     if(ob[i].pid < ob[ind].pid)
                         ind = i;
@@ -91,13 +90,13 @@ int main()
         }
     }
     cout << "\n";
-    cout << "\nPID\tAT\tBT\tCT\tTAT\tWT\tRT\n";
+    cout << "\nPID\tAT\tBT\tPriority\tCT\tTAT\tWT\tRT\n";
     float sum_rt = 0, sum_wt = 0, sum_tat = 0, sum_bt = 0;
     int first_arrival = ob[0].at;
     int last_completion = 0;
     for(int i = 0; i < 5; i++)
     {
-        cout << ob[i].pid << "\t" << ob[i].at << "\t" << ob[i].bt << "\t"
+        cout << ob[i].pid << "\t" << ob[i].at << "\t" << ob[i].bt << "\t" <<ob[i].priority<<"\t"
             << ob[i].ct << "\t" << ob[i].tat << "\t" << ob[i].wt << "\t" << ob[i].rt << endl;
         sum_rt += ob[i].rt;
         sum_wt += ob[i].wt;

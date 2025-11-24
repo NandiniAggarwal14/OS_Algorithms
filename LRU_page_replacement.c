@@ -48,16 +48,16 @@ int main()
 				index = empty;
 			else
 			{
-			int min = time[0];
-			index=0;
-			for(int j=1; j<f; j++)
-			{
-				if(time[j] < min)
+				int min = time[0];
+				index=0;
+				for(int j=1; j<f; j++)
 				{
-					min = time[j];
-					index = j;
+					if(time[j] < min)
+					{
+						min = time[j];
+						index = j;
+					}
 				}
-			}
 			}
 			frames[index]=pages[i];
 			time[index]=t;
